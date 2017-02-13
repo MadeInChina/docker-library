@@ -28,7 +28,7 @@ ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-without-hadoop
 ENV SPARK_HOME /usr/spark-${SPARK_VERSION}
 ENV PATH $PATH:${SPARK_HOME}/bin
 RUN curl -sL —retry 3 \
-  "https://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-${SPARK_VERSION}/${SPARK_PACKAGE}.tgz" \
+  "http://d3kbcqa49mib13.cloudfront.net/${SPARK_PACKAGE}.tgz" \
   | gunzip \
   | tar x -C /usr/ \
  && mv /usr/$SPARK_PACKAGE $SPARK_HOME \
