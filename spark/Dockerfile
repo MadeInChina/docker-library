@@ -4,6 +4,9 @@ FROM ubuntu:16.04
 MAINTAINER slamhan1987@hotmail.com
 
 
+RUN apt-get update \
+ && apt-get install -y curl unzip
+
 # JAVA
 ARG JAVA_MAJOR_VERSION=8
 ARG JAVA_UPDATE_VERSION=112
