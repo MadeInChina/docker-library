@@ -48,7 +48,7 @@ RUN curl -sL —retry 3 \
  && mv /usr/$SPARK_PACKAGE $SPARK_HOME \
  && chown -R root:root $SPARK_HOME
 
-RUN curl -s "http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.40/mysql-connector-java-5.1.40.jar" -o $SPARK_HOME/jars/mysql-connector-java.jar
+RUN curl -s "http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.40/mysql-connector-java-5.1.40.jar" -o ${SPARK_HOME}/jars/mysql-connector-java.jar
 ENV SPARK_DRIVER_CLASSPATH="$SPARK_HOME/jars/mysql-connector-java.jar"
 WORKDIR $SPARK_HOME
 
