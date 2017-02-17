@@ -50,7 +50,7 @@ RUN curl -sL —retry 3 \
 
 RUN curl -sL —retry 3 \
   "http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.40/mysql-connector-java-5.1.40.jar" -o $SPARK_HOME/jars/mysql-connector-java.jar
-
+ENV SPARK_DRIVER_CLASSPATH="$SPARK_HOME/jars/mysql-connector-java.jar"
 WORKDIR $SPARK_HOME
 
 CMD ["bin/spark-class", "org.apache.spark.deploy.master.Master"]
