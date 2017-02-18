@@ -39,18 +39,16 @@ RUN curl -sL --retry 3 \
 ENV SPARK_VERSION 2.1.0
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-without-hadoop
 ENV SPARK_DIST_CLASSPATH="$HADOOP_HOME/etc/hadoop/*:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:$HADOOP_HOME/share/hadoop/tools/lib/*"
-ENV SPARK_HOME /usr/spark-${SPARK_VERSION}
+ENV SPARK_HOME /usr/spark
 ENV PATH $PATH:${SPARK_HOME}/bin
 RUN curl -sL —retry 3 \
   "http://d3kbcqa49mib13.cloudfront.net/${SPARK_PACKAGE}.tgz" \
   | gunzip \
   | tar x -C /usr/ \
  && mv /usr/$SPARK_PACKAGE $SPARK_HOME \
- && chown -R root:root $SPARK_HOME
+ && chown -R root:root $SPARK_HOME \
+ && curl -sL "http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.40/mysql-connector-java-5.1.40.jar" -o /usr/spark/jars/mysql-connector-java.jar 
 
-RUN curl -s -L -o ${SPARK_HOME}/jars/mysql-connector-java.jar \
-    "http://central.maven.org/maven2/mysql/mysql-connector-java/5.1.40/mysql-connector-java-5.1.40.jar"
-ENV SPARK_DRIVER_CLASSPATH="$SPARK_HOME/jars/mysql-connector-java.jar"
 WORKDIR $SPARK_HOME
 
 CMD ["bin/spark-class", "org.apache.spark.deploy.master.Master"]
